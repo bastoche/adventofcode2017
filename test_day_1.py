@@ -1,5 +1,6 @@
 from day_1 import first_part
 
+
 def test_first_part():
     assert first_part('1122') == 3
     assert first_part('1111') == 4
