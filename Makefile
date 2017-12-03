@@ -4,4 +4,4 @@ test:
 	pytest
 
 lint:
-	flake8 --ignore E501
+	flake8
