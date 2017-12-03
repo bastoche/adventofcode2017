@@ -1,23 +1,27 @@
+def rotate(list, n):
+    return list[n:] + list[:n]
+
+
+def filter_equal_values(lhs, rhs):
+    return [a for a, b in zip(lhs, rhs) if a == b]
+
+
+def sum_as_integers(list):
+    return sum([int(a) for a in list])
+
+
 def part_one(input):
-    result = 0
-    size = len(input)
-    for index, char in enumerate(input):
-        next_char_index = (index + 1) % size
-        next_char = input[next_char_index]
-        if char == next_char:
-            result += int(char)
-    return result
+    lhs = list(input)
+    rhs = rotate(lhs, 1)
+    values = filter_equal_values(lhs, rhs)
+    return sum_as_integers(values)
 
 
 def part_two(input):
-    result = 0
-    size = len(input)
-    for index, char in enumerate(input):
-        next_char_index = (index + size // 2) % size
-        next_char = input[next_char_index]
-        if char == next_char:
-            result += int(char)
-    return result
+    lhs = list(input)
+    rhs = rotate(lhs, len(lhs) // 2)
+    values = filter_equal_values(lhs, rhs)
+    return sum_as_integers(values)
 
 
 if __name__ == "__main__":
