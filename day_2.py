@@ -14,6 +14,31 @@ def to_number_list(list):
     return [int(element) for element in list.split()]
 
 
+def part_two(input):
+    return sum([max_even_division_result(all_pairs(line)) for line in parse(input)])
+
+
+def max_even_division_result(pairs):
+    return max([even_division_result(left, right) for left, right in pairs])
+
+
+def even_division_result(left, right):
+    smallest = min(left, right)
+    largest = max(left, right)
+    if largest % smallest == 0:
+        return largest // smallest
+    return 0
+
+
+def all_pairs(list):
+    length = len(list)
+    result = []
+    for i in range(length):
+        for j in range(i + 1, length):
+            result.append((list[i], list[j]))
+    return result
+
+
 if __name__ == "__main__":
     input = """86	440	233	83	393	420	228	491	159	13	110	135	97	238	92	396
 3646	3952	3430	145	1574	2722	3565	125	3303	843	152	1095	3805	134	3873	3024
@@ -32,3 +57,4 @@ if __name__ == "__main__":
 286	2076	243	939	399	451	231	2187	2295	453	1206	2468	2183	230	714	681
 3111	2857	2312	3230	149	3082	408	1148	2428	134	147	620	128	157	492	2879"""
     print(part_one(input))
+    print(part_two(input))
