@@ -1,4 +1,4 @@
-from day_3 import part_one, get_circle_index, get_circle_zero, get_cardinal_points, compute_distance_to_closest_cardinal_point
+from day_3 import part_one, get_circle_index, get_circle_zero, get_cardinal_points, compute_distance_to_closest_cardinal_point, part_two, get_next_coordinates
 
 
 def test_part_one():
@@ -36,3 +36,20 @@ def test_get_circle_zero():
     assert get_circle_zero(2) == 9
     assert get_circle_zero(3) == 25
     assert get_circle_zero(4) == 49
+
+
+def test_part_two():
+    assert part_two(6) == 10
+    assert part_two(30) == 54
+
+
+def test_get_next_coordinates():
+    get_next_coordinates(0, 0) == (1, 0)
+    get_next_coordinates(0, 1) == (1, 1)
+    get_next_coordinates(1, 1) == (0, 1)
+    get_next_coordinates(0, 1) == (-1, 1)
+    get_next_coordinates(-1, 1) == (-1, 0)
+    get_next_coordinates(-1, 0) == (-1, -1)
+    get_next_coordinates(-1, -1) == (0, -1)
+    get_next_coordinates(0, -1) == (1, -1)
+    get_next_coordinates(1, -1) == (2, -1)
