@@ -1,0 +1,4 @@
+{
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Path": "/Users/BDURET/.virtualenvs/adventofcode2017-et4-IBWM/bin/flake8"
+}

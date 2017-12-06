@@ -1,47 +1,28 @@
-import math
+from math import ceil, sqrt
 
 
 def part_one(input):
-    if input == 1:
-        return 0
-
-    points = get_cardinal_directions(input)
-
-    if input in points:
-        return 1 + part_one(input - offset_for_cardinal_point(input, points))
-
-    closest_point = get_closest_point(input, points)
-    if input < closest_point:
-        return 1 + part_one(input + 1)
-    else:
-        return 1 + part_one(input - 1)
+    circle_index = get_circle_index(input)
+    circle_zero = get_circle_zero(circle_index)
+    cardinal_points = get_cardinal_points(circle_index, circle_zero)
+    distance_to_closest_cardinal_point = compute_distance_to_closest_cardinal_point(input, cardinal_points)
+    return circle_index + distance_to_closest_cardinal_point
 
 
-def get_closest_point(input, points):
-    return min(points, key=lambda x: abs(x - input))
+def get_circle_index(input):
+    return ceil(sqrt(input)) // 2
 
 
-def get_cardinal_directions(input):
-    odd_square_below = get_odd_square_below(input)
-    odd_square_above = (math.sqrt(odd_square_below) + 2) * (math.sqrt(odd_square_below) + 2)
-    steps = (odd_square_above - odd_square_below) // 4
-    east = odd_square_below + steps // 2
-    north = east + steps
-    west = north + steps
-    south = west + steps
-    return [east, north, west, south]
+def get_circle_zero(circle_index):
+    return pow(circle_index * 2 - 1, 2)
 
 
-def get_odd_square_below(input):
-    root = math.floor(math.sqrt(input))
-    if root % 2 == 0:
-        root = root - 1
-    return root * root
+def get_cardinal_points(circle_index, circle_zero):
+    return [circle_zero + x * circle_index for x in [1, 3, 5, 7]]
 
 
-def offset_for_cardinal_point(input, points):
-    side_length_for_previous_square = math.sqrt(get_odd_square_below(input)) - 1
-    return side_length_for_previous_square * 4 + 1 + points.index(input) * 2
+def compute_distance_to_closest_cardinal_point(input, cardinal_points):
+    return min([abs(input - x) for x in cardinal_points])
 
 
 if __name__ == "__main__":
