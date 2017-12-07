@@ -8,6 +8,6 @@ def test_part_one():
 
 
 def test_is_valid():
-    assert(is_valid('aa bb cc dd ee')) == True
-    assert(is_valid('aa bb cc dd aa')) == False
-    assert(is_valid('aa bb cc dd aaa')) == True
+    assert is_valid('aa bb cc dd ee')
+    assert not is_valid('aa bb cc dd aa')
+    assert is_valid('aa bb cc dd aaa')
