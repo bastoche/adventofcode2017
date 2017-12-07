@@ -1,10 +1,20 @@
 def part_one(input):
-    return sum([is_valid(line) for line in input.split('\n')])
+    return sum([contains_only_unique_elements(line) for line in input.split('\n')])
 
 
-def is_valid(line):
+def contains_only_unique_elements(line):
     words = line.split()
     return len(words) == len(set(words))
+
+
+def part_two(input):
+    return sum([not contains_anagrams(line) for line in input.split('\n')])
+
+
+def contains_anagrams(line):
+    words = line.split()
+    sorted_words = [''.join(sorted(word)) for word in words]
+    return len(sorted_words) != len(set(sorted_words))
 
 
 if __name__ == "__main__":
@@ -521,3 +531,4 @@ gye efwwwiv kyv zmtcgmi ifwvwew
 dflx gdtb jyoj jyoj dflx aqhycgi xffnn
 inc mpys mzqmcwx vryz ibqrzc pmsy fat rojpxwy rcbqzi gjef"""
     print(part_one(input))
+    print(part_two(input))
