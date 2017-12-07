@@ -1,11 +1,11 @@
 def part_one(input):
-    list = input.split('\n')
+    jumps = [int(number) for number in input.split('\n')]
     position = 0
     steps = 0
-    while 0 <= position < len(list):
-        value = int(list[position])
-        list[position] = value + 1
-        position = position + value
+    while 0 <= position < len(jumps):
+        value = jumps[position]
+        jumps[position] = value + 1
+        position += value
         steps += 1
     return steps
 
