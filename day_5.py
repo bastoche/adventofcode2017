@@ -10,6 +10,21 @@ def part_one(input):
     return steps
 
 
+def part_two(input):
+    jumps = [int(number) for number in input.split('\n')]
+    position = 0
+    steps = 0
+    while 0 <= position < len(jumps):
+        value = jumps[position]
+        if value >= 3:
+            jumps[position] = value - 1
+        else:
+            jumps[position] = value + 1
+        position += value
+        steps += 1
+    return steps
+
+
 if __name__ == "__main__":
     input = """0
 0
@@ -1068,3 +1083,4 @@ if __name__ == "__main__":
 -85
 -437"""
     print(part_one(input))
+    print(part_two(input))
