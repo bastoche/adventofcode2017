@@ -10,8 +10,8 @@ def parse(input):
     return [to_number_list(line) for line in input.splitlines()]
 
 
-def to_number_list(list):
-    return [int(element) for element in list.split()]
+def to_number_list(string):
+    return list(map(int, string.split()))
 
 
 def part_two(input):

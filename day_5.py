@@ -1,5 +1,5 @@
 def part_one(input):
-    jumps = [int(number) for number in input.split('\n')]
+    jumps = list(map(int, input.split('\n')))
     position = 0
     steps = 0
     while 0 <= position < len(jumps):
@@ -11,7 +11,7 @@ def part_one(input):
 
 
 def part_two(input):
-    jumps = [int(number) for number in input.split('\n')]
+    jumps = list(map(int, input.split('\n')))
     position = 0
     steps = 0
     while 0 <= position < len(jumps):

@@ -6,8 +6,8 @@ def filter_equal_values(lhs, rhs):
     return [a for a, b in zip(lhs, rhs) if a == b]
 
 
-def sum_as_integers(list):
-    return sum([int(a) for a in list])
+def sum_as_integers(list_of_strings):
+    return sum(map(int, list_of_strings))
 
 
 def part_one(input):
