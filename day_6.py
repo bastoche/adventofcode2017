@@ -1,13 +1,11 @@
 def part_one(input):
     iterations = 0
     seen_states = set()
-    state = list(map(int, input.split()))
-    while True:
+    state = string_to_integer_list(input)
+    while integer_list_to_string(state) not in seen_states:
         iterations += 1
-        seen_states.add(' '.join(map(str, state)))
+        seen_states.add(integer_list_to_string(state))
         state = redistribute(state)
-        if ' '.join(map(str, state)) in seen_states:
-            break
     return iterations
 
 
@@ -19,6 +17,14 @@ def redistribute(list):
         index = (max_index + i + 1) % len(list)
         list[index] += 1
     return list
+
+
+def string_to_integer_list(string):
+    return list(map(int, string.split()))
+
+
+def integer_list_to_string(integer_list):
+    return ' '.join(map(str, integer_list))
 
 
 if __name__ == "__main__":
