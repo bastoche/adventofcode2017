@@ -1,40 +1,92 @@
 import re
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 
 
-PATTERN = re.compile("(\w+) \(\d+\) -> (.*)")
+PATTERN = re.compile("(\w+) \((\d+)\) ?-?>? ?(.*)")
 
 
-Program = namedtuple('Program', ['name', 'weight'])
+Program = namedtuple('Program', ['name', 'weight', 'children'])
 
 
 def part_one(input):
     lines = input.split('\n')
-    parents, child_to_parent = parse_tree(lines)
-
-    for parent in parents:
-        if parent not in child_to_parent:
-            return parent
+    programs, children = parse_tree(lines)
+    return get_root_program(programs, children).name
 
 
 def part_two(input):
     lines = input.split('\n')
-    parents, child_to_parent = parse_tree(lines)
-    return 60
+    programs, children = parse_tree(lines)
+    root_program = get_root_program(programs, children)
+    return find_unbalanced_weight(root_program, programs)
+
+
+def find_unbalanced_weight(program, programs):
+    if not program.children:
+        return None
+
+    for child in program.children:
+        unbalanced_child_weight = find_unbalanced_weight(programs[child], programs)
+        if unbalanced_child_weight:
+            return unbalanced_child_weight
+
+    children_programs = [programs[child] for child in program.children]
+    weights = [compute_total_weight(child, programs) for child in children_programs]
+    wrong_weight_index, target_weight = get_wrong_weight_index(weights)
+    if wrong_weight_index == -1:
+        return None
+
+    return children_programs[wrong_weight_index].weight + target_weight - weights[wrong_weight_index]
+
+
+def compute_total_weight(program, programs):
+    return program.weight + sum([compute_total_weight(programs[child], programs) for child in program.children])
+
+
+def get_wrong_weight_index(weights):
+    frequency_dict = defaultdict(int)
+    for weight in weights:
+        frequency_dict[weight] += 1
+    inverted_frequency_dict = {value: key for key, value in frequency_dict.items()}
+    if len(inverted_frequency_dict) == 2:
+        wrong_weight = inverted_frequency_dict[1]
+        wrong_weight_index = weights.index(wrong_weight)
+        target_weight = weights[(wrong_weight_index + 1) % len(weights)]
+        return wrong_weight_index, target_weight
+
+    return -1, 0
+
+
+def get_root_program(programs, children):
+    for program_name in programs:
+        if program_name not in children:
+            return programs[program_name]
 
 
 def parse_tree(lines):
-    parents = []
-    child_to_parent = {}
+    programs = {}
+    all_children = []
     for line in lines:
-        result = PATTERN.match(line)
-        if result:
-            parent = result.group(1)
-            parents.append(parent)
-            children = result.group(2).split(', ')
-            for child in children:
-                child_to_parent[child] = parent
-    return parents, child_to_parent
+        program = parse_line(line)
+        programs[program.name] = program
+        for child in program.children:
+            all_children.append(child)
+    return programs, all_children
+
+
+def parse_line(line):
+    result = PATTERN.match(line)
+    if result:
+        name = result.group(1)
+        weight = int(result.group(2))
+        children = parse_children(result.group(3))
+        return Program(name=name, weight=weight, children=children)
+
+
+def parse_children(children):
+    if not children:
+        return []
+    return children.split(', ')
 
 
 if __name__ == "__main__":
@@ -1644,3 +1696,4 @@ kklix (25) -> jzoue, yokqfgn
 usevgds (44) -> aydmhhv, kkftjia
 tqlentr (214) -> gfxnuuk, thmlk"""
     print(part_one(input))
+    print(part_two(input))
