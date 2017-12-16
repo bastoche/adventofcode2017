@@ -1,5 +1,5 @@
 from collections import defaultdict
-from day_8 import part_one, parse_line, process_line, EqualCondition, StrictlySuperiorCondition, StrictlyInferiorCondition, SuperiorCondition, IncrementOperation, DecrementOperation
+from day_8 import part_one, part_two, parse_line, process_line, EqualCondition, StrictlySuperiorCondition, StrictlyInferiorCondition, SuperiorCondition, IncrementOperation, DecrementOperation
 
 
 def test_part_one():
@@ -7,6 +7,13 @@ def test_part_one():
 a inc 1 if b < 5
 c dec -10 if a >= 1
 c inc -20 if c == 10""") == 1
+
+
+def test_part_two():
+    assert part_two("""b inc 5 if a > 1
+a inc 1 if b < 5
+c dec -10 if a >= 1
+c inc -20 if c == 10""") == 10
 
 
 def test_parse_line():

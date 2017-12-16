@@ -10,6 +10,16 @@ def part_one(input):
     return max([value for key, value in registers.items()])
 
 
+def part_two(input):
+    lines = input.split('\n')
+    maximum_value = 0
+    registers = defaultdict(int)
+    for line in lines:
+        process_line(line, registers)
+        maximum_value = max(maximum_value, max([value for key, value in registers.items()]))
+    return maximum_value
+
+
 def process_line(line, registers):
     condition, operation = parse_line(line)
     if condition.is_true(registers):
@@ -1124,4 +1134,4 @@ xzn dec -546 if iy <= 1370
 ae inc 996 if su >= -1564
 buw inc 559 if okl <= 1919"""
     print(part_one(input))
-    # print(part_two(input))
+    print(part_two(input))
