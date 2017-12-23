@@ -6,7 +6,7 @@ def part_one(input):
     directions_dict = to_frequency_dict(directions_list)
     directions_dict = cancel_opposite_directions(directions_dict)
     directions_dict = find_shortcuts(directions_dict)
-    return sum([value for key,value in directions_dict.items()])
+    return sum([value for key, value in directions_dict.items()])
 
 
 def to_frequency_dict(word_list):

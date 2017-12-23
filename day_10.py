@@ -52,7 +52,7 @@ def to_dense_hash(input):
     result = []
     for i in range(length):
         elements = [input[i * 16 + j] for j in range(16)]
-        result.append(reduce(lambda a,b: a ^ b, elements))
+        result.append(reduce(lambda a, b: a ^ b, elements))
     return result
 
 
