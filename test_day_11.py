@@ -1,5 +1,5 @@
 from collections import defaultdict
-from day_11 import part_one, to_frequency_dict, cancel_directions, transform_directions
+from day_11 import part_one, to_frequency_dict, cancel_directions, transform_directions, part_two
 
 
 def test_part_one():
@@ -19,3 +19,10 @@ def test_cancel_directions():
 
 def test_transform_directions():
     assert transform_directions(defaultdict(int, {'ne': 2, 's': 1}), 'ne', 's', 'se') == {'ne': 1, 's': 0, 'se': 1}
+
+
+def test_part_two():
+    assert part_two('ne,ne,ne') == 3
+    assert part_two('ne,ne,sw,sw') == 2
+    assert part_two('ne,ne,s,s') == 2
+    assert part_two('se,sw,se,sw,sw') == 3

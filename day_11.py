@@ -3,6 +3,10 @@ from collections import defaultdict
 
 def part_one(input):
     directions_list = input.split(',')
+    return compute_distance(directions_list)
+
+
+def compute_distance(directions_list):
     directions_dict = to_frequency_dict(directions_list)
     directions_dict = cancel_opposite_directions(directions_dict)
     directions_dict = find_shortcuts(directions_dict)
@@ -53,7 +57,14 @@ def transform_directions(directions_dict, left, right, result):
     return directions_dict
 
 
+def part_two(input):
+    directions_list = input.split(',')
+    distances = [compute_distance(directions_list[0:i + 1]) for i in range(len(directions_list))]
+    return max(distances)
+
+
 if __name__ == "__main__":
     with open('day_11.txt') as file:
         input = file.read()
     print(part_one(input))
+    print(part_two(input))
